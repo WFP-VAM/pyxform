@@ -25,7 +25,7 @@ class Question:
         if self.choices:
             choices = ""
             for c in self.choices:
-                choices = choices + """<li><a href="#">{}</a></li>""".format(c['name'])
+                choices = choices + """<li><a href="#">{}</a></li>""".format(c['label'])
         else:
             choices = ""
 
@@ -65,14 +65,14 @@ def feed_workbook(wb):
     """given a json workbook from pyxform it decomposes each question."""
     l = []
     for i in wb:
-        if 'group' in i:
-            g = i['group']
+        if i['type'] == 'group':
+            g = i['name']
+            print(g)
         else:
             g = None
         if 'label' in i:
             if 'children' in i:
                 for j in i['children']:
-                    print(j)
                     if 'label' in j:
                         j['group'] = g
                         l.append(add_question(j))
