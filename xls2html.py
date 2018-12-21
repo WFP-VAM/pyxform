@@ -65,11 +65,16 @@ def feed_workbook(wb):
     """given a json workbook from pyxform it decomposes each question."""
     l = []
     for i in wb:
+        #print(i)
         if i['type'] == 'group':
-            g = i['name']
-            print(g)
+            print(i)
+            try:
+                g = i['label']
+            except KeyError:
+                g = None  # workround for weird "meta" in Valrio's xls.
         else:
             g = None
+        print(g)
         if 'label' in i:
             if 'children' in i:
                 for j in i['children']:
