@@ -84,7 +84,7 @@ def feed_workbook(wb):
 
 
 if __name__ == '__main__':
-    XLS_FILE = 'data/mvam_car_test1.xls'
+    XLS_FILE = 'data/codebook_xls.xls'
     # we can convert the xls to a better shaped json with pyxform
     from pyxform.xls2json_backends import xls_to_dict
     workbook_dict = xls_to_dict(XLS_FILE)
@@ -96,35 +96,10 @@ if __name__ == '__main__':
 
     rows = ""
     for i in l:
-        print(i.__dict__.keys())
         rows = rows + i.to_html()
 
-    html = """
-    <head>
-        <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-        <!-- Latest compiled and minified CSS -->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-        <!-- Latest compiled and minified JavaScript -->
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-        <style>
-            .open ul.dropdown-menu {
-                display: block;
-                position: relative;
-            }
-        </style>
-    </head>
-    <body>
-        <table class="table table-hover">
-          <thead>
-            <tr>
-              <th scope="col">group</th>
-              <th scope="col">type</th>
-              <th scope="col">name</th>
-              <th scope="col">label</th>
-              <th scope="col">choices</th>
-            </tr>
-          </thead>
-          <tbody>"""+' '.join(rows.split())+"</tbody></table></body>"
+    import html_utils as h
+    html = h.html_head + h.html_body_header +' '.join(rows.split())+h.html_body_tail
 
 
 
